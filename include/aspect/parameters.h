@@ -320,6 +320,7 @@ namespace aspect
     unsigned int                   max_nonlinear_iterations;
     unsigned int                   max_nonlinear_iterations_in_prerefinement;
     unsigned int                   n_cheap_stokes_solver_steps;
+    unsigned int                   n_expensive_stokes_solver_steps;
     double                         temperature_solver_tolerance;
     double                         composition_solver_tolerance;
 
@@ -366,6 +367,7 @@ namespace aspect
      * @{
      */
     bool                           include_melt_transport;
+    bool                           enable_additional_stokes_rhs;
 
     std::set<types::boundary_id> fixed_temperature_boundary_indicators;
     std::set<types::boundary_id> fixed_composition_boundary_indicators;
@@ -386,7 +388,7 @@ namespace aspect
      * mapped to one of the plugins of traction boundary conditions (e.g.
      * "function")
      */
-    std::map<types::boundary_id, std::pair<std::string,std::string> > prescribed_boundary_traction_indicators;
+    std::map<types::boundary_id, std::pair<std::string,std::string> > prescribed_traction_boundary_indicators;
 
     /**
      * Selection of operations to perform to remove nullspace from velocity

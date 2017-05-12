@@ -240,8 +240,8 @@ namespace aspect
 
     // Zero out the displacement for the traction boundaries
     // if the boundary is not in the set of tangential mesh boundaries
-    for (std::map<types::boundary_id, std::pair<std::string, std::string> >::const_iterator p = sim.parameters.prescribed_boundary_traction_indicators.begin();
-         p != sim.parameters.prescribed_boundary_traction_indicators.end(); ++p)
+    for (std::map<types::boundary_id, std::pair<std::string, std::string> >::const_iterator p = sim.parameters.prescribed_traction_boundary_indicators.begin();
+         p != sim.parameters.prescribed_traction_boundary_indicators.end(); ++p)
       {
         if (tangential_mesh_boundary_indicators.find(p->first) == tangential_mesh_boundary_indicators.end())
           {
@@ -651,13 +651,8 @@ namespace aspect
     mesh_vertex_constraints.close();
 
     //Now reset the mapping of the simulator to be something that captures mesh deformation in time.
-#if DEAL_II_VERSION_GTE(8,5,0)
     sim.mapping.reset (new MappingQ1Eulerian<dim, LinearAlgebra::Vector> (free_surface_dof_handler,
                                                                           mesh_displacements));
-#else
-    sim.mapping.reset (new MappingQ1Eulerian<dim, LinearAlgebra::Vector> (mesh_displacements,
-                                                                          free_surface_dof_handler));
-#endif
   }
 
   template <int dim>
